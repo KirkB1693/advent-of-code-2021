@@ -12,6 +12,7 @@ fun main() {
     check(part1(testInput) == 0)
     check(part2(testInput) == 0)
 
+
     val input = readInput("Day03")
     println("Part 1 Answer : " + part1(input))
     println("Part 2 Answer : " + part2(input))
