@@ -1,1 +1,1 @@
-rootProject.name = "Advent of Code Kotlin Template"
+rootProject.name = "advnet-of-code-2021"
