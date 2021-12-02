@@ -30,9 +30,10 @@ fun main() {
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
+    check(part1(testInput) == 7)
+    check(part2(testInput) == 5)
 
     val input = readInput("Day01")
-    println(part1(input))
-    println(part2(input))
+    println("Part 1 Answer : " + part1(input))
+    println("Part 2 Answer : " + part2(input))
 }
