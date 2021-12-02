@@ -1,10 +1,31 @@
 fun main() {
     fun part1(input: List<String>): Int {
-        return input.size
+        var count = 0
+        var prevDepth = input[0].toInt()
+        for (depthString in input) {
+            val depth = depthString.toInt()
+            if (depth > prevDepth) {  //depth increases
+                count++
+            }
+            prevDepth = depth
+        }
+        return count
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        var increasingDepthWindowCount = 0
+        val inputWindowed = input.windowed(3)
+        var prevDepthWindow = inputWindowed[0].sumOf { it.toInt() }
+        if (inputWindowed.size >= 2) {
+            for (depthWindowString in inputWindowed) {
+                val depthWindow = depthWindowString.sumOf { it.toInt() }
+                if (depthWindow > prevDepthWindow) {  //depth window increases
+                    increasingDepthWindowCount++
+                }
+                prevDepthWindow = depthWindow
+            }
+        }
+        return increasingDepthWindowCount
     }
 
     // test if implementation meets criteria from the description, like:
