@@ -18,7 +18,7 @@ fun main() {
                 }
             }
         }
-        return maxSize+1
+        return maxSize + 1
     }
 
     fun plotVerticalLine(plot: Array<IntArray>, it: List<String>): Array<IntArray> {
@@ -49,9 +49,45 @@ fun main() {
             x1 = it[0].toInt()
             x2 = it[2].toInt()
         }
+
         for (x in x1..x2) {
             plot[x][y] += 1
         }
+        return plot
+    }
+
+    fun plotDiagonalLine(plot: Array<IntArray>, it: List<String>): Array<IntArray> {
+        val x1: Int
+        val x2: Int
+        val y1: Int
+        val y2: Int
+        if (it[0].toInt() > it[2].toInt()) {
+            x1 = it[2].toInt()
+            x2 = it[0].toInt()
+            y1 = it[3].toInt()
+            y2 = it[1].toInt()
+        } else {
+            x1 = it[0].toInt()
+            x2 = it[2].toInt()
+            y1 = it[1].toInt()
+            y2 = it[3].toInt()
+        }
+        if ((y1 - y2) / (x1 - x2) == 1) {
+            var y = y1
+            for (x in x1..x2) {
+                plot[x][y] += 1
+                y++
+            }
+        } else if ((y1 - y2) / (x1 - x2) == -1) {
+            var y = y1
+            for (x in x1..x2) {
+                plot[x][y] += 1
+                y--
+            }
+        } else {
+            println("Line is not 45 degrees, can't plot diagonal line")
+        }
+
         return plot
     }
 
@@ -63,7 +99,9 @@ fun main() {
                 newPlot = plotVerticalLine(newPlot, it)
             } else if (it[1] == it[3]) {
                 // y1 = y2, so line is horizontal
-                newPlot = plotHorizontalLine(newPlot,it)
+                newPlot = plotHorizontalLine(newPlot, it)
+            } else {
+                newPlot = plotDiagonalLine(newPlot, it)
             }
 
         }
@@ -75,7 +113,7 @@ fun main() {
         plot.forEach {
             it.forEach { point ->
                 if (point >= 2) {
-                    overlapCount ++
+                    overlapCount++
                 }
             }
         }
@@ -95,14 +133,20 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-
-        return input.size
+        val inputString = input.toString()
+        val initialArray = inputString.split("\\p{Punct}", " -> ", "[[", "[", "]]", "]", " ", ",")
+        val cleanedArray = initialArray.filter { it.isNotBlank() }
+        val lines = cleanedArray.chunked(4)
+        val maxPlotSize = getSizeOfPlot(lines)
+        var plot = Array(maxPlotSize) { IntArray(maxPlotSize) { 0 } }
+        plot = drawLines(plot, lines)
+        return findNumberOfPointsOfOverlap(plot)
     }
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day05_test")
     check(part1(testInput) == 5)
-    check(part2(testInput) == 10)
+    check(part2(testInput) == 12)
 
     val input = readInput("Day05")
     println("Part 1 Answer : " + part1(input))
