@@ -9,11 +9,11 @@ fun main() {
     }
 
     // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day04_test")
+    val testInput = readInput("Day06_test")
     check(part1(testInput) == 0)
     check(part2(testInput) == 0)
 
-    val input = readInput("Day04")
+    val input = readInput("Day06")
     println("Part 1 Answer : " + part1(input))
     println("Part 2 Answer : " + part2(input))
 }
