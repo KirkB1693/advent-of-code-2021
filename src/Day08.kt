@@ -139,10 +139,10 @@ fun main() {
             rawInputValues[i] = rawInputValues[i].substringBefore('|').trim()
             digitMap = findDigitMap(rawInputValues[i])
             val outputBuilder = StringBuilder()
-            var listOfOutputValues = rawOutputValues[i].split(" ")
+            var listOfOutputValues = rawOutputValues[i].split(" ")  // output values for the corresponding input line
             listOfOutputValues = listOfOutputValues.filter { it.isNotBlank() }
             listOfOutputValues.forEach {
-                outputBuilder.append(findDigit(digitMap, it))
+                outputBuilder.append(findDigit(digitMap, it))  // signals may not be in the same order as digitMap, so compare signals in digitMap with signals in output value to find actual digit for output
             }
             val actualOutput = outputBuilder.toString()
             outputValues.add(actualOutput.toInt())
